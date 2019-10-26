@@ -1,6 +1,5 @@
 target
 out
-dist
 node_modules
 /notebooks/
 libjep.dylib
