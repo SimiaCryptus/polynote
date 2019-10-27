@@ -18,6 +18,14 @@ class PolynoteConfigSpec extends FlatSpec with Matchers with EitherValues {
 
   }
 
+  "PolynoteConfig" should "decode values from JSON" in {
+    require(Json.fromJsonObject(JsonObject.fromMap(Map(
+      "behavior" -> Json.fromJsonObject(JsonObject.fromMap(Map(
+        "dependencyIsolation" -> Json.fromBoolean(false)
+      )))
+    ))).as[PolynoteConfig](PolynoteConfig.decoder).right.get.behavior.dependencyIsolation == false)
+  }
+
   it should "parse handwritten yamls" in {
 
     val yamlStr =
