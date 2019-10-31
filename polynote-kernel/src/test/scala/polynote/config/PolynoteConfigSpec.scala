@@ -21,9 +21,15 @@ class PolynoteConfigSpec extends FlatSpec with Matchers with EitherValues {
   "PolynoteConfig" should "decode values from JSON" in {
     require(Json.fromJsonObject(JsonObject.fromMap(Map(
       "behavior" -> Json.fromJsonObject(JsonObject.fromMap(Map(
-        "dependencyIsolation" -> Json.fromBoolean(false)
+        "dependency_isolation" -> Json.fromBoolean(false)
       )))
     ))).as[PolynoteConfig](PolynoteConfig.decoder).right.get.behavior.dependencyIsolation == false)
+    require(Json.fromJsonObject(JsonObject.fromMap(Map(
+      "spark" -> Json.fromJsonObject(JsonObject.fromMap(Map(
+        "spark.driver.userClasspathFirst" -> Json.fromBoolean(false)
+      )))
+    ))).as[PolynoteConfig](PolynoteConfig.decoder).right.get.spark("spark.driver.userClasspathFirst") == "false")
+
   }
 
   it should "parse handwritten yamls" in {
